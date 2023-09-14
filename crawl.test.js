@@ -6,7 +6,7 @@ const {UrlNormalizationOne} =require("./crawl2.js")
 // import expect from "@jest/globals"
 
 test("normalizeURL strip protocol",()=>{
-    const input="https://blogs.boot.dev/path/";
+    const input="https://blogs.boot.dev/path";
     const actual=UrlNormalizationOne(input);
     const expected="blogs.boot.dev/path";
     expect(actual).toEqual(expected);
@@ -19,10 +19,9 @@ test("normalizeURL strip triling slash",()=>{
     expect(actual).toEqual(expected);
 }
 )
-// test("normalizeURL strip protocol",()=>{
-//     const input="https://blogs.boot.dev/path/";
-//     const actual=normalizeURL(input);
-//     const expected="blogs.boot.dev/path";
-//     expect(actual).toEqual(expected);
-// }
-// )
+test("normlizeURL capitals",()=>{
+    const input="https://Blogs.Boot.dev/path/";
+    const actual=normalizeURL(input);
+    const expected="blogs.boot.dev/path";
+    expect(actual).toEqual(expected);
+})
