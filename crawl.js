@@ -1,3 +1,5 @@
+const {JSDOM}= require("jsdom");
+
 function normalizeURL(urlString){
     const urlObj=new URL(urlString);
     const url=`${urlObj.hostname}${urlObj.pathname}`;
@@ -7,6 +9,42 @@ function normalizeURL(urlString){
     }
     return url;
 }
+function getUrlsFromHtml(htmlBody,baseUrl){
+    let jsdom=new JSDOM(htmlBody);
+    const linkElements=jsdom.window.document.querySelectorAll("a");
+    let arra=[];
+    // map an array of all the a elements and return it
+    for(let i of linkElements){
+        if(i.href.slice(0,1)=="/"){
+            try{
+                const newUrl=new URL(`${baseUrl}${i.getAttribute("href")}`)
+                arra.push(newUrl.href); 
+            }
+            catch(err){
+                console.log(`You got a error : ${err.message}`);
+            }
+        
+        
+        }
+        else
+        {
+            try{
+                const newUrl=new URL(i.getAttribute("href"));
+                arra.push(newUrl.href); 
+            }
+            catch(err){
+                console.log(`You got a error : ${err.message}`);
+            }
+
+        }
+    }
+    
+    return arra;
+    
+  
+}
+
 module.exports={
-    normalizeURL
+    normalizeURL,
+    getUrlsFromHtml
 }

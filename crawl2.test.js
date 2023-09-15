@@ -1,4 +1,4 @@
-const {normalizeURL}=require("./crawl");
+const {normalizeURL,getUrlsFromWebsite}=require("./crawl");
 const {test,expect}=require("@jest/globals");
 
 
